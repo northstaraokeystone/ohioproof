@@ -1,0 +1,28 @@
+{
+  "glyph_type": "anchor",
+  "id": "ohioproof-v1",
+  "ts": "2024-12-26T00:00:00Z",
+  "version": "1.0.0",
+  "purpose": "Receipts-Native Government Accountability System for Ohio",
+  "target_fraud": 8300000000,
+  "domains": [
+    "medicaid",
+    "jobsohio",
+    "hb6",
+    "strs",
+    "pandemic",
+    "charter"
+  ],
+  "physics": "fraud=high_entropy, legitimate=low_entropy",
+  "code_hashes": {
+    "src/core.py": "COMPUTE_ON_BUILD",
+    "src/constants.py": "COMPUTE_ON_BUILD"
+  },
+  "config": {
+    "tenant_id": "ohioproof",
+    "hash_algorithm": ["SHA256", "BLAKE3"]
+  },
+  "slo_deltas": {},
+  "gate": "t48h",
+  "status": "active"
+}

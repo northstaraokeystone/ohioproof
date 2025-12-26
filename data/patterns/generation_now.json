@@ -1,0 +1,27 @@
+{
+  "pattern_id": "generation_now",
+  "type": "dark_money_501c4",
+  "description": "501(c)(4) dark money pattern from HB6/FirstEnergy bribery case",
+  "indicators": [
+    {"field": "tax_status", "operator": "eq", "value": "501(c)(4)", "weight": 1.0},
+    {"field": "donor_disclosure_pct", "operator": "lt", "value": 0.10, "weight": 1.0},
+    {"field": "annual_receipts", "operator": "gt", "value": 1000000, "weight": 0.8},
+    {"field": "political_expenditure_pct", "operator": "gt", "value": 0.50, "weight": 0.9}
+  ],
+  "correlations": [
+    {"source": "lobbying", "timing_days": 30},
+    {"source": "legislative_votes", "timing_days": 60}
+  ],
+  "verified_case": {
+    "name": "Generation Now",
+    "ein": "REDACTED",
+    "amount": 60000000,
+    "outcome": "20-year federal sentence for Larry Householder",
+    "conviction_date": "2023-06"
+  },
+  "risk_weight": 0.9,
+  "references": [
+    "DOJ Press Release 2020-07-21",
+    "US v. Householder et al., Case No. 1:20-cr-77"
+  ]
+}

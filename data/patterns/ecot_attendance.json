@@ -1,0 +1,30 @@
+{
+  "pattern_id": "ecot_attendance",
+  "type": "charter_fraud",
+  "description": "Virtual school attendance inflation fraud pattern",
+  "indicators": [
+    {"field": "school_type", "operator": "eq", "value": "virtual", "weight": 0.5},
+    {"field": "claimed_enrollment", "operator": "gt", "value": 1000, "weight": 0.3},
+    {"field": "attendance_variance_pct", "operator": "gt", "value": 20, "weight": 1.0}
+  ],
+  "red_flags": [
+    "related_party_vendors",
+    "enrollment_variance_gt_20pct",
+    "login_hours_lt_10pct_claimed"
+  ],
+  "detection_logic": [
+    "Compare claimed enrollment vs verified enrollment",
+    "Analyze login/participation data vs claimed hours",
+    "Flag schools with >20% variance",
+    "Check for related-party vendor payments"
+  ],
+  "verified_case": {
+    "name": "Electronic Classroom of Tomorrow (ECOT)",
+    "total_received": 1000000000,
+    "finding_for_recovery": 117000000,
+    "civil_judgments": 161600000,
+    "years_operating": 18,
+    "judgment_date": "2022-06"
+  },
+  "risk_weight": 0.8
+}

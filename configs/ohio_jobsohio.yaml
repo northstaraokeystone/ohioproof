@@ -1,0 +1,66 @@
+# JobsOhio Configuration
+# Domain: jobsohio
+# Priority: P0
+
+domain: jobsohio
+version: "1.0"
+status: active
+
+transparency_note: |
+  JobsOhio is a private 501(c)(4) exempt from Ohio Public Records Law
+  (ORC 187.04, OH Supreme Court 2014). This module creates public
+  accountability for outcomes that are otherwise hidden.
+
+data_sources:
+  primary:
+    name: "JobsOhio Annual Reports"
+    type: pdf_scrape
+    frequency: annual
+
+  secondary:
+    - name: "ODJFS Employer Wage Data"
+      requires: matching_agreement
+    - name: "Ohio Checkbook"
+      url: "https://checkbook.ohio.gov"
+    - name: "USASpending"
+      url: "https://api.usaspending.gov"
+
+detection:
+  commitment_tracking:
+    verify_quarterly: true
+    clawback_trigger_days: 30
+
+  delivery_verification:
+    job_creation: true
+    payroll_verification: true
+    investment_verification: true
+
+slos:
+  verification_frequency_days: 90
+  dashboard_freshness_days: 7
+  clawback_trigger_days: 30
+
+verified_failures:
+  failure_rate: 0.65
+  companies_audited: 60
+  companies_failed: 39
+  source: "Ohio Auditor Dec 2024"
+
+known_failures:
+  - company: "Truepill Inc."
+    promised_payroll: 6200000
+    delivered: 0
+  - company: "Surati (Canada)"
+    promised_jobs: 108
+    delivered: 0
+  - company: "Barbaricum"
+    promised_jobs: 80
+    delivered: 3
+
+major_commitments:
+  - company: "Intel"
+    promised_jobs: 3000
+    original_date: "2028"
+    current_date: "2031"
+    incentive_estimate: 2000000000
+    status: delayed

@@ -1,0 +1,47 @@
+# Ohio Medicaid Configuration
+# Domain: medicaid
+# Priority: P0
+
+domain: medicaid
+version: "1.0"
+status: active
+
+data_sources:
+  primary:
+    name: "Ohio Department of Medicaid"
+    url: "https://medicaid.ohio.gov"
+    type: enrollment_data
+    requires_dsa: true  # Data Sharing Agreement
+
+  secondary:
+    - name: "CMS Medicare/Medicaid Crossover"
+      requires: federal_data_use_agreement
+    - name: "NPPES Registry"
+      url: "https://npiregistry.cms.hhs.gov"
+      type: rest_api
+
+detection:
+  concurrent_enrollment:
+    threshold_months: 3
+    chronic_threshold_months: 48
+    confidence_threshold: 0.8
+
+  capitation_monitoring:
+    payment_before_verification: true
+    alert_latency_hours: 24
+
+slos:
+  detection_latency_hours: 24
+  precision_min: 0.85
+  alert_before_capitation: true
+
+verified_fraud:
+  concurrent_individuals: 124448
+  chronic_individuals: 2372
+  capitation_at_risk: 1000000000
+  source: "Ohio Auditor March 2024"
+
+referral_agencies:
+  - "OIG"
+  - "Ohio AG"
+  - "CMS"
