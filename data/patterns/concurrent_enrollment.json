@@ -1,0 +1,27 @@
+{
+  "pattern_id": "concurrent_enrollment",
+  "type": "medicaid_fraud",
+  "description": "Multi-state Medicaid concurrent enrollment fraud",
+  "indicators": [
+    {"field": "concurrent_months", "operator": "gte", "value": 3, "weight": 1.0}
+  ],
+  "severity_tiers": [
+    {"months": 3, "severity": "low", "weight": 0.3},
+    {"months": 12, "severity": "medium", "weight": 0.6},
+    {"months": 48, "severity": "critical", "weight": 1.0}
+  ],
+  "detection_logic": [
+    "Ingest Ohio Medicaid enrollment",
+    "Cross-reference with NPPES for provider addresses outside Ohio",
+    "Flag patterns: same provider serving Ohio patient in another state",
+    "Compute capitation payment amount at risk",
+    "Emit alert if match confidence > 0.8"
+  ],
+  "verified_case": {
+    "individuals": 124448,
+    "chronic_individuals": 2372,
+    "estimated_improper": 1000000000,
+    "source": "Ohio Auditor March 2024"
+  },
+  "risk_weight": 0.85
+}

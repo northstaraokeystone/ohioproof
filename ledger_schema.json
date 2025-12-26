@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "tenant_id": "ohioproof",
+  "hash_strategy": {
+    "algorithm": ["SHA256", "BLAKE3"],
+    "format": "SHA256:BLAKE3",
+    "merkle_algorithm": "BLAKE3"
+  },
+  "receipt_types": {
+    "core": [
+      "ingest",
+      "anchor",
+      "anomaly",
+      "bias",
+      "compaction"
+    ],
+    "ingest": [
+      "checkbook_ingest",
+      "usaspending_ingest",
+      "propublica_ingest",
+      "nppes_ingest",
+      "campaign_finance_ingest",
+      "lobbying_ingest",
+      "puco_ingest"
+    ],
+    "detect": [
+      "anomaly",
+      "compression",
+      "correlation",
+      "pattern_match",
+      "growth_anomaly"
+    ],
+    "domain": {
+      "medicaid": [
+        "medicaid_enrollment",
+        "medicaid_anomaly"
+      ],
+      "jobsohio": [
+        "jobsohio_commitment",
+        "jobsohio_verification",
+        "jobsohio_clawback"
+      ],
+      "hb6": [
+        "dark_money_scan",
+        "legislative_correlation"
+      ],
+      "strs": [
+        "strs_investment",
+        "strs_governance"
+      ],
+      "pandemic": [
+        "pandemic_claim",
+        "pandemic_fraud"
+      ],
+      "charter": [
+        "charter_enrollment",
+        "charter_attendance"
+      ]
+    },
+    "output": [
+      "brief",
+      "packet",
+      "referral",
+      "dashboard"
+    ]
+  },
+  "required_fields": {
+    "all_receipts": [
+      "receipt_type",
+      "ts",
+      "tenant_id",
+      "payload_hash"
+    ]
+  },
+  "storage": {
+    "primary": "receipts.jsonl",
+    "format": "json_lines",
+    "append_only": true,
+    "compression": "none",
+    "backup_interval_hours": 24
+  },
+  "slo_thresholds": {
+    "ingest_latency_ms": 60000,
+    "parse_accuracy": 0.999,
+    "detection_latency_ms": 5000,
+    "false_positive_rate": 0.15,
+    "precision": 0.80,
+    "correlation_score": 0.70,
+    "growth_alert_rate": 5.0,
+    "medicaid_alert_hours": 24,
+    "jobsohio_verification_days": 90,
+    "dashboard_freshness_days": 7
+  },
+  "fraud_thresholds": {
+    "compression": {
+      "legitimate": 0.50,
+      "suspicious": 0.75,
+      "fraudulent": 0.90
+    },
+    "growth": {
+      "alert": 5.0,
+      "critical": 28.0
+    },
+    "correlation": {
+      "flag_threshold": 0.70
+    }
+  }
+}

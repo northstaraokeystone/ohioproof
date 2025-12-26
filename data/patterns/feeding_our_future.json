@@ -1,0 +1,32 @@
+{
+  "pattern_id": "feeding_our_future",
+  "type": "growth_anomaly",
+  "description": "Explosive program growth fraud pattern from Minnesota case",
+  "indicators": [
+    {"field": "yoy_growth_rate", "operator": "gt", "value": 28.0, "weight": 1.0},
+    {"field": "site_capacity_ratio", "operator": "gt", "value": 5.0, "weight": 0.8},
+    {"field": "onboarding_velocity_days", "operator": "lt", "value": 7, "weight": 0.7}
+  ],
+  "ignored_signals_warning": [
+    "30+ complaints over 3 years",
+    "Sites claiming thousands of meals within days of opening",
+    "Rapid site proliferation"
+  ],
+  "detection_logic": [
+    "Monitor year-over-year payment growth",
+    "Flag any growth > 500% for immediate review",
+    "Flag growth > 2800% as critical",
+    "Track onboarding velocity (days from opening to large claims)",
+    "Compare claimed capacity to physical capacity estimates"
+  ],
+  "verified_case": {
+    "state": "Minnesota",
+    "organization": "Feeding Our Future",
+    "amount": 250000000,
+    "growth_rate": "2800%",
+    "indictments": 70,
+    "source": "GAO-25-108412"
+  },
+  "risk_weight": 0.95,
+  "ohio_applicability": "Applicable to any program with per-unit reimbursement"
+}

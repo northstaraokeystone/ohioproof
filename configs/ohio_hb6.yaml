@@ -1,0 +1,62 @@
+# HB6 Dark Money Configuration
+# Domain: hb6
+# Priority: P1
+
+domain: hb6
+version: "1.0"
+status: closed_case_pattern_active
+
+description: |
+  HB6 was largest corruption case in Ohio history. $60M in bribery
+  through 501(c)(4) dark money organizations. This module detects
+  similar patterns in other organizations.
+
+data_sources:
+  - name: "ProPublica Nonprofits"
+    url: "https://projects.propublica.org/nonprofits"
+    type: rest_api
+  - name: "Ohio Campaign Finance"
+    url: "https://ohiosos.gov"
+    type: web_scrape
+  - name: "OLAC Lobbying"
+    url: "https://jlec-olig.state.oh.us"
+    type: web_scrape
+  - name: "PUCO DIS"
+    url: "https://dis.puc.state.oh.us"
+    type: document_system
+  - name: "Court Documents"
+    type: manual_ingest
+
+detection:
+  dark_money_scan:
+    frequency: monthly
+    501c4_threshold_receipts: 1000000
+    disclosure_threshold_pct: 0.10
+    correlation_threshold: 0.70
+
+  legislative_timing:
+    window_days: 90
+    large_contribution_threshold: 10000
+
+slos:
+  monthly_scan: true
+  flag_threshold: 0.70
+  human_review_trigger: 0.70
+
+verified_case:
+  name: "Generation Now / FirstEnergy / HB6"
+  bribery_amount: 60000000
+  ratepayer_bailout: 1300000000
+  randazzo_payment: 4300000
+  householder_sentence_years: 20
+  firstenergy_doj_fine: 230000000
+  firstenergy_sec_settlement: 100000000
+  firstenergy_puco_settlement: 275000000
+  status: convicted
+
+pattern_indicators:
+  - "501(c)(4) status with no donor disclosure"
+  - "Large anonymous donations"
+  - "Expenditures to political consultants"
+  - "Timing correlation with legislative votes"
+  - "Board overlap with political actors"
